@@ -1,0 +1,22 @@
+name: Build AlDhahra APK
+on: 
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build with Buildozer
+        uses: ArtemSerebriakov/buildozer-action@v1
+        with:
+          buildozer_version: master
+          command: buildozer android debug
+          
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: AlDhahra-App-Package
+          path: bin/*.apk
