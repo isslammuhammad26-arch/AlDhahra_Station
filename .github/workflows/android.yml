@@ -1,22 +1,20 @@
-name: Build AlDhahra APK
+name: Build
 on: [push, pull_request]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4  # تم التحديث للإصدار 4
+      - uses: actions/checkout@v4
 
       - name: Build with Buildozer
-        # استخدام المكتبة الرسمية والمستقرة
-        uses: kivy/buildozer-action@master 
+        # استخدام الإصدار الرسمي والمستقر من كيفي
+        uses: kivy/buildozer-action@v1.2.2
         with:
-          buildozer_version: master
           command: buildozer android debug
           
-      - name: Upload APK
-        # تم التحديث للإصدار 4 لحل مشكلة الـ Deprecation
-        uses: actions/upload-artifact@v4 
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
         with:
-          name: AlDhahra-Station-APK
+          name: package
           path: bin/*.apk
